@@ -1,58 +1,57 @@
-// carousel.js
-
-// Array que armazena os itens do carrossel
 let carouselArr = [];
 
-// Classe Carousel
 class Carousel {
-    constructor(img, title, link) {
-        this.img = img;
-        this.title = title;
+    constructor(image, text, link){
+        this.image = image;
+        this.text = text;
         this.link = link;
     }
-
-    // Inicia o carrossel
-    static Start(arr) {
-        
-        if (arr && arr.length > 0) {0
-            Carousel._sequence = 0;
-            Carousel._size = arr.length;
-            Carousel.Next(); // mostra o primeiro
-            Carousel._interval = setInterval(() => Carousel.Next(), 5000);
+      
+    static Start(arr){
+        if(arr){
+            if(arr.length > 0){
+                Carousel._sequence = 0;
+                Carousel._size = arr.length;
+                Carousel.Next(); //start
+                Carousel._interval = setInterval(function(){ Carousel.Next(); },5000);
+                
+                // Add event listeners for arrows
+                document.getElementById("prev-btn").addEventListener("click", Carousel.Previous);
+                document.getElementById("next-btn").addEventListener("click", Carousel.Next);
+            }
         } else {
-            throw "O método Start precisa de um array com elementos.";
+            throw "Method Start need a Array Variable.";
         }
     }
 
-    // Mostra o próximo item do carrossel
-    static Next() {
-        const item = carouselArr[Carousel._sequence];
-
-        const carouselDiv = document.getElementById("carousel");
-        const titleDiv = document.getElementById("carousel-title");
-
-        // limpa conteúdo anterior
-        carouselDiv.innerHTML = "";
-        titleDiv.innerHTML = "";
-
-        // cria imagem
-        const imgElement = document.createElement("img");
-        imgElement.src = "img/" + item.img;
-        imgElement.alt = item.title;
-        imgElement.style.width = "100%";
-
-        // cria título com link
-        const linkElement = document.createElement("a");
-        linkElement.href = item.link;
-        linkElement.textContent = item.title;
-        linkElement.style.textDecoration = "none";
-        linkElement.style.color = "#000";
-
-        // adiciona ao DOM
-        carouselDiv.appendChild(imgElement);
-        titleDiv.appendChild(linkElement);
-
-        // atualiza sequência
-        Carousel._sequence = (Carousel._sequence + 1) % Carousel._size;
+    static Next(){
+        let c = carouselArr[Carousel._sequence];
+        document.getElementById("carousel").innerHTML = `<a href="${c.link}"><img src="img/${c.image}" width="100%" height="auto"></a>`;
+        document.getElementById("carousel-title").innerHTML = `<a href="${c.link}">${c.text}</a>`;
+        Carousel._sequence++;
+        if(Carousel._sequence >= Carousel._size)
+            Carousel._sequence = 0;
+        
+        // Reset auto-interval on manual click to avoid immediate advance
+        if(Carousel._interval) {
+            clearInterval(Carousel._interval);
+            Carousel._interval = setInterval(function(){ Carousel.Next(); },5000);
+        }
     }
-}
+
+    static Previous(){
+        Carousel._sequence--;
+        if(Carousel._sequence < 0)
+            Carousel._sequence = Carousel._size - 1;
+        
+        let c = carouselArr[Carousel._sequence];
+        document.getElementById("carousel").innerHTML = `<a href="${c.link}"><img src="img/${c.image}" width="100%" height="auto"></a>`;
+        document.getElementById("carousel-title").innerHTML = `<a href="${c.link}">${c.text}</a>`;
+        
+        // Reset auto-interval on manual click
+        if(Carousel._interval) {
+            clearInterval(Carousel._interval);
+            Carousel._interval = setInterval(function(){ Carousel.Next(); },5000);
+        }
+    }
+};

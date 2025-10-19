@@ -12,8 +12,8 @@ html {
 
 div#carousel {
     height: 46vh;
-    width: 88%;
-     max-height: 628px;
+    width: 87%;
+    max-height: 628px;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
@@ -23,7 +23,7 @@ div#carousel-title a {
     text-decoration: none;
 }
 
-div#carousel-title  {
+div#carousel-title {
     display: block;
     text-align: center;
     margin-top: 10px;
@@ -39,7 +39,7 @@ header ul {
 }
 
 ul {
-	display: inline-block;
+    display: inline-block;
 }
 
 header {
@@ -84,12 +84,46 @@ main {
     min-height: calc(100% - 167px);
 }
 
-.main-index{
-    align-items: center;
+#main-carousel {
+    justify-content: space-between;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    /* Ensure relative positioning for absolute arrows */
 }
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    background-color: transparent;
+    color: rgb(30, 0, 255);
+    border: none;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    border-radius: 50px;
+    width: 5vw;
+    height: 8vh;
+    
+}
+
+
+.carousel-arrow-left {
+    left: 10px;
+}
+
+.carousel-arrow-right {
+    right: 10px;
+}
+
+.carousel-arrow:hover {
+    border: solid 1px blue;
+    background-color: #cccccc7b;
+    width: 5vw;
+    height: 8vh;
+}
+
 
 nav#social {
     display: inline;
@@ -118,10 +152,15 @@ footer div {
 
 button:hover {
     background: #1b357e;
+    width: 210px;
+    height: 41px;
+    transform: scale(1.05);
 }
+
 button {
     background: #1351d8;
     color: #fff;
     border: 0px;
     border-radius: 10px;
+    transition: all 0.3s ease-in-out;
 }
