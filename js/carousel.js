@@ -27,7 +27,7 @@ class Carousel {
     static Next(){
         let c = carouselArr[Carousel._sequence];
         document.getElementById("carousel").innerHTML = `<a href="${c.link}"><img src="img/${c.image}" width="100%" height="auto"></a>`;
-        document.getElementById("carousel-title").innerHTML = `<a href="${c.link}">${c.text}</a>`;
+        document.getElementById("carousel-title").innerHTML = `<a href="${c.link}" style="color:black">${c.text}</a>`;
         Carousel._sequence++;
         if(Carousel._sequence >= Carousel._size)
             Carousel._sequence = 0;
