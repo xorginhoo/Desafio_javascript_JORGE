@@ -12,7 +12,7 @@ html {
 
 div#carousel {
     height: 46vh;
-    width: 90%;
+    width: 85%;
     max-height: 628px;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
